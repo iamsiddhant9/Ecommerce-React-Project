@@ -26,8 +26,9 @@
   width: 200px;
 }
 
-.checkout-header .logo {
-  height: 26px;
+.checkout-header .logo{
+  height: 150px;
+  width: 270px;
   margin-top: 0px;
 }
 

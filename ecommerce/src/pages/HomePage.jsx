@@ -5,6 +5,7 @@ import './HomePage.css';
 export function HomePage(){
     return(
         <>
+        <title>UrbanCart</title>
     <div className="header">
 <div className="left-section">
 <a href="/" className="header-link">

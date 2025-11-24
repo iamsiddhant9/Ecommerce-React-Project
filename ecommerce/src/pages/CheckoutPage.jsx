@@ -1,11 +1,15 @@
+import './checkout-header.css'
+import './CheckoutPage.css'
+
 export function CheckoutPage(){
     return(
         <>
+        <title>Checkout</title>
          <div className="checkout-header">
       <div className="header-content">
         <div className="checkout-header-left-section">
           <a href="/">
-            <img className="logo" src="images/logo.png" />
+            <img className="logo" src="images/logo1.svg" />
             <img className="mobile-logo" src="images/mobile-logo.png" />
           </a>
         </div>
