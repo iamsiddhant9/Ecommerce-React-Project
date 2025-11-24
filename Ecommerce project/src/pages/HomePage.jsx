@@ -9,7 +9,7 @@ export function HomePage(){
 <div className="left-section">
 <a href="index.html" className="header-link">
     <img className="logo"
-    src="images/logo-white.png" />
+    src="images/logo1.svg" />
     <img className="mobile-logo"
     src="images/mobile-logo-white.png" />
 </a>
