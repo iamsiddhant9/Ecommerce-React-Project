@@ -25,7 +25,7 @@ export function HomePage(){
    
         <>
         <title>UrbanCart</title>
-   <Header cart={Cart}/>
+   <Header cart={cart}/>
 
 <div className="home-page">
 <div className="products-grid">
