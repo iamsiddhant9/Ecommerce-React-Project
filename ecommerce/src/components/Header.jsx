@@ -1,18 +1,19 @@
-import './header.css'
-import {Link} from 'react-router';
-export function Header({cart}){
-  let totalQuantity=0;
-  cart.forEach((cartItem)=>{
-    totalQuantity += cartItem.quantity;
-  })
+import { Link } from 'react-router';
+import './header.css';
 
-    return(
-        <>
-            <div className="header">
+export function Header({ cart }) {
+  let totalQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    totalQuantity += cartItem.quantity;
+  });
+
+  return (
+    <div className="header">
       <div className="left-section">
         <Link to="/" className="header-link">
           <img className="logo"
-            src="images/logo1.svg" />
+            src="images/logo1.png" />
           <img className="mobile-logo"
             src="images/mobile-logo-white.png" />
         </Link>
@@ -22,7 +23,7 @@ export function Header({cart}){
         <input className="search-bar" type="text" placeholder="Search" />
 
         <button className="search-button">
-          <img className="search-icon" src="images/icons/search-ic on.png" />
+          <img className="search-icon" src="images/icons/search-icon.png" />
         </button>
       </div>
 
@@ -39,6 +40,5 @@ export function Header({cart}){
         </Link>
       </div>
     </div>
-        </>
-    );
+  );
 }

@@ -1,58 +1,48 @@
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'; 
 import { formatMoney } from '../../utils/money';
-import { DeliveryOptions } from '../../checkout/DeliveryOptions';
-
-export function OrderSummary({ cart = [], deliveryOptions = [] }) {
-  // If nothing to show, render a small placeholder
-  if (!Array.isArray(cart) || cart.length === 0) {
-    return <div className="order-summary">No items in cart.</div>;
-  }
-
+ import { DeliveryOptions } from '../../checkout/DeliveryOptions'; 
+ export function OrderSummary({ cart, deliveryOptions }) {
   return (
     <div className="order-summary">
-      {cart.map((cartItem) => {
-        // Defensive: ensure cartItem is an object
-        if (!cartItem) return null;
+   
+      {deliveryOptions.length > 0 && cart.map((cartItem) => {
+        const selectedDeliveryOption = deliveryOptions
+          .find((deliveryOption) => {
+            return deliveryOption.id === cartItem.deliveryOptionId;
+          });
 
-        const product = cartItem.product ?? {};
-        const quantity = cartItem.quantity ?? 0;
-
-        // Find delivery option; may be undefined
-        const selectedDeliveryOption = Array.isArray(deliveryOptions)
-          ? deliveryOptions.find((opt) => opt.id === cartItem.deliveryOptionId)
-          : undefined;
-
-        // Safe delivery date string
-        const deliveryDate = selectedDeliveryOption?.estimatedDeliveryTimeMs
-          ? dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM D')
-          : 'Delivery date unavailable';
-
-        const imageSrc = product.image ?? '/images/placeholder.png'; // keep a placeholder in public/images
-        const priceCents = product.priceCents ?? 0;
+        // Guard clause to prevent errors if delivery option is not found
+        if (!selectedDeliveryOption) {
+          return null;
+        }
 
         return (
-          <div key={cartItem.productId ?? Math.random()} className="cart-item-container">
-            <div className="delivery-date">Delivery date: {deliveryDate}</div>
+          <div key={cartItem.productId} className="cart-item-container">
+            <div className="delivery-date">
+              Delivery date: {dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
+            </div>
 
             <div className="cart-item-details-grid">
-              <img
-                className="product-image"
-                src={imageSrc}
-                alt={product.name ?? 'Product'}
-                // optional: provide width/height or onError fallback
-                onError={(e) => (e.currentTarget.src = '/images/placeholder.png')}
-              />
+              <img className="product-image"
+                src={cartItem.product.img} />
 
               <div className="cart-item-details">
-                <div className="product-name">{product.name ?? 'Unknown product'}</div>
-                <div className="product-price">{formatMoney(priceCents)}</div>
-
+                <div className="product-name">
+                  {cartItem.product.name}
+                </div>
+                <div className="product-price">
+                  {formatMoney(cartItem.product.priceCents)}
+                </div>
                 <div className="product-quantity">
                   <span>
-                    Quantity: <span className="quantity-label">{quantity}</span>
+                    Quantity: <span className="quantity-label">{cartItem.quantity}</span>
                   </span>
-                  <span className="update-quantity-link link-primary">Update</span>
-                  <span className="delete-quantity-link link-primary">Delete</span>
+                  <span className="update-quantity-link link-primary">
+                    Update
+                  </span>
+                  <span className="delete-quantity-link link-primary">
+                    Delete
+                  </span>
                 </div>
               </div>
 
